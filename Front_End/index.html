@@ -18,7 +18,11 @@
                     <h2>Lista de usuarios</h2>
                 </div>
                 <div class="col-2">
-                    <button type="button" class="btn btn-outline-primary">Agregar</button>
+                    <button type="button" class="btn btn-outline-primary" @click="guardar=true;
+                                                                                 actualizar=false;
+                                                                                usuario.nombre=null;
+                                                                                usuario.apellido=null;
+                                                                                usuario.correo=null" data-toggle="modal" data-target="#modelId">Agregar</button>
                 </div>
             </div>
             <hr>
@@ -40,7 +44,7 @@
                                     <td>{{ user.apellido }}</td>
                                     <td>{{ user.correo }}</td>
                                     <td>
-                                        <button class="btn btn-outline-success" @click="getUsuario(user.id)" data-toggle="modal" data-target="#modelId">Edit</button class="btn btn-outline-danger">
+                                        <button class="btn btn-outline-success" @click="getUsuario(user.id); actualizar=true; guardar=false " data-toggle="modal" data-target="#modelId">Edit</button class="btn btn-outline-danger">
                                         <button class="btn btn-outline-danger"@click="getUsuario(user.id)" data-toggle="modal" data-target="#model">Elim</button>
                                     </td>
                                 </tr>
@@ -61,7 +65,7 @@
                         </button>
                 </div>
                 <div class="modal-body">
-                    <form action="" v-on:submit.prevent="updateUsuario">
+                    <form action="" >
                         <div class="form-group">
                           <label for="">Nombre</label>
                           <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId"   v-model="usuario.nombre">
@@ -76,7 +80,8 @@
                           </div>
                           <div class="form-group">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="submit" v-if="actualizar" class="btn btn-primary" @click="updateUsuario">Actualizar</button>
+                            <button type="submit" v-if="guardar"class="btn btn-primary" @click="addUsuario">Guardar</button>
                         </div>
                     </form>
                 </div>
